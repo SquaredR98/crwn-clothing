@@ -18,6 +18,9 @@ const Navigation = () => {
                     <Link className={`nav-link ${(location.pathname==='/shop') ? 'active' : ''}`} to='/shop'>
                         SHOP
                     </Link>
+                    <Link className={`nav-link ${(location.pathname==='/sign-in') ? 'active' : ''}`} to='/sign-in'>
+                        SIGN IN
+                    </Link>
                 </div>
             </div>
             <Outlet /> 
