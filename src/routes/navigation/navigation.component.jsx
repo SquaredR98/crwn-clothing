@@ -6,8 +6,7 @@ import './navigation.styles.scss';
 
 const Navigation = () => {
     const location = useLocation();
-    console.log(location);
-
+    
     return (
         <Fragment>
             <div className="navigation">
