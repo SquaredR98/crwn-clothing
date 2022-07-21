@@ -4,6 +4,7 @@ import HomePage from "./routes/home/home.component";
 import Navigation from "./routes/navigation/navigation.component";
 import AuthenticationPage from "./routes/authentication/authentication.component";
 
+
 const ShopPage = () => {
   return <h1>This is a shoppage component.</h1>
 }
