@@ -6,8 +6,7 @@ import './navigation.styles.scss';
 
 const Navigation = () => {
     const location = useLocation();
-    console.log(location);
-
+    
     return (
         <Fragment>
             <div className="navigation">
@@ -18,7 +17,7 @@ const Navigation = () => {
                     <Link className={`nav-link ${(location.pathname==='/shop') ? 'active' : ''}`} to='/shop'>
                         SHOP
                     </Link>
-                    <Link className={`nav-link ${(location.pathname==='/sign-in') ? 'active' : ''}`} to='/sign-in'>
+                    <Link className={`nav-link ${(location.pathname==='/auth') ? 'active' : ''}`} to='/auth'>
                         SIGN IN
                     </Link>
                 </div>
