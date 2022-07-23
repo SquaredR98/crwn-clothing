@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
-import './sign-up-form.styles.scss';
+import "./sign-up-form.styles.scss";
 
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from "../../utils/firebase/firebase.utils";
+
+import { UserContext } from "../../contexts/user.contexts";
 
 const defaultFormFields = {
   displayName: "",
@@ -18,36 +23,43 @@ const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
 
+  const { setCurrentUser } = useContext(UserContext);
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    if(password != confirmPassword) {
+
+    if (password != confirmPassword) {
       alert("Passwords do not match");
       return;
     }
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
-      
-      await createUserDocumentFromAuth( user, { displayName });
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      setCurrentUser(user);
+
+      await createUserDocumentFromAuth(user, { displayName });
 
       resetFormFields();
     } catch (error) {
-      if(error.code === "auth/email-already-in-use") {
+      if (error.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already exists.");
       } else {
-        console.log('User creation encountered an error', error);
+        console.log("User creation encountered an error", error);
       }
     }
-  }
+  };
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setFormFields({...formFields, [name]: value});
+    setFormFields({ ...formFields, [name]: value });
   };
 
   return (
@@ -87,7 +99,9 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-        <Button type="submit" style={{width: '100%'}}>SIGN UP</Button>
+        <Button type="submit" style={{ width: "100%" }}>
+          SIGN UP
+        </Button>
       </form>
     </div>
   );
