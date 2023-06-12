@@ -1,40 +1,22 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-import Directory from "./components/directory/directory.component";
+import Home from "./routes/Home/home.component";
+import Navigation from "./routes/Navigation/navigation.component";
 
-const categories = [
-  {
-    id: 1,
-    title: "hats",
-    imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
-  },
-  {
-    id: 2,
-    title: "jackets",
-    imageUrl: "https://i.ibb.co/px2tCc3/jackets.png",
-  },
-  {
-    id: 3,
-    title: "sneakers",
-    imageUrl: "https://i.ibb.co/0jqHpnp/sneakers.png",
-  },
-  {
-    id: 4,
-    title: "womens",
-    imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
-  },
-  {
-    id: 5,
-    title: "mens",
-    imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
-  },
-];
-
+/**
+ * In order to make the routes or pages routeable we must wrap
+ * all other components in <Routes /> and with it we would be 
+ * able to implement the routing functionaity easily.
+ */
 const App = () => {
   return (
-    <Directory categories={categories} />
+    <Routes>
+      <Route path="/"  element={<Navigation />} >
+        <Route index element={<Home />} />
+      </Route>
+    </Routes>
   );
 };
 
 export default App;
-
