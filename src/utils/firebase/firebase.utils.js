@@ -10,6 +10,7 @@ import {
   signInWithRedirect,           // This redirects to another page for authentication
   signInWithPopup,              // This creates popup instead of redirecting it to another page
   GoogleAuthProvider,
+  createUserWithEmailAndPassword
 } from "firebase/auth";
 
 import {
@@ -47,11 +48,12 @@ export const auth = getAuth();
 
 // We must export the signUpWithPopup with auth and provider params
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider);
 
 // Similar to mongoose models
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async(userAuth) => {
+export const createUserDocumentFromAuth = async(userAuth, additionalInfo) => {
   // This creates the object irrespective of whether data 
   // is present in the db or not.
   const userDocRef = doc(db, 'users', userAuth.uid);
@@ -68,7 +70,8 @@ export const createUserDocumentFromAuth = async(userAuth) => {
       await setDoc(userDocRef, {
         displayName,
         email,
-        createdAt
+        createdAt,
+        ...additionalInfo
       })
     } catch (error) {
       console.log(error);
@@ -76,4 +79,10 @@ export const createUserDocumentFromAuth = async(userAuth) => {
   }
 
   return userDocRef;
+}
+
+export const createAuthUserWithEmailAndPassword = async(email, password) => {
+  if( !email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
 }
