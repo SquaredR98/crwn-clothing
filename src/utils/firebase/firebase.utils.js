@@ -15,7 +15,6 @@ import {
 } from "firebase/auth";
 
 import {
-  Firestore,
   getFirestore,                 // Instantiate the firestore db
   doc,                          // Instantiate the document on which operation need to perform
   getDoc,                       // Method to get data out of the instantiated document
