@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "./routes/Home/home.component";
 import Navigation from "./routes/Navigation/navigation.component";
-import SignIn from "./routes/SignIn/signin.component";
+import Authentication from "./routes/Authentication/authentication.component";
 
 /**
  * In order to make the routes or pages routeable we must wrap
@@ -15,7 +15,7 @@ const App = () => {
     <Routes>
       <Route path="/"  element={<Navigation />} >
         <Route index element={<Home />} />
-        <Route path="sign-in" element={<SignIn />} />
+        <Route path="auth" element={<Authentication />} />
       </Route>
     </Routes>
   );
