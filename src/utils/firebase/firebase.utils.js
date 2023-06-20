@@ -21,6 +21,10 @@ import {
   doc, // Instantiate the document on which operation need to perform
   getDoc, // Method to get data out of the instantiated document
   setDoc, // Method to set the data in the instantiated document
+  collection, // Gives access to the collections in the firestore database
+  writeBatch, // Allows to do batch write to db
+  query,
+  getDocs
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -57,6 +61,37 @@ export const signInWithGoogleRedirect = () =>
 
 // Similar to mongoose models
 export const db = getFirestore();
+
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  
+  const batch = writeBatch(db);
+  const collectionRef = collection(db, collectionKey);
+
+  objectsToAdd.forEach((object) =>{
+    console.log('Object', object);
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  })
+
+  await batch.commit();
+  console.log('DONE');
+}
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, 'categories');
+
+  const q = query(collectionRef);
+
+  const querySnapshot = await getDocs(q);
+
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    const {title, items} = docSnapshot.data();
+    acc[title.toLowerCase()] = items
+    return acc;
+  }, {})
+
+  return categoryMap;
+}
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo) => {
   // This creates the object irrespective of whether data
