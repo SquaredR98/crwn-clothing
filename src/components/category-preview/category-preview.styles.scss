@@ -1,0 +1,26 @@
+.category-preview-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+
+  .top-bar {
+    display: flex;
+    align-items: center;
+    .title {
+      font-size: 28px;
+      margin-bottom: 25px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .icon {
+      font-size: 2rem;
+    }
+  }
+
+  .preview {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+  }
+}
