@@ -1,5 +1,4 @@
 import React from "react";
-import './authentication.styles.scss';
 
 /* import {
   auth,
@@ -21,6 +20,7 @@ import './authentication.styles.scss';
 // import { getRedirectResult } from "firebase/auth";
 import SignUpForm from "../../components/signup-form/signup-form.component";
 import SignInForm from "../../components/signin-form/signin-form.component";
+import { AuthenticationContainer } from "./authentication.styles";
 
 const SignIn = () => {
   // Method for the redirect google sign in
@@ -41,10 +41,10 @@ const SignIn = () => {
   // };
 
   return (
-    <div className="authentication-container">
+    <AuthenticationContainer>
       <SignInForm />
       <SignUpForm />
-    </div>
+    </AuthenticationContainer>
   );
 };
 
