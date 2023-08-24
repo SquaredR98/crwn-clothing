@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
-import { CartContext } from "../../contexts/cart.context";
+import React from "react";
 
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
-import { CheckoutContainer, CheckoutHeader, HeaderBlock } from "./checkout.styles";
+import { CheckoutContainer, CheckoutHeader, HeaderBlock, Total } from "./checkout.styles";
+import { useSelector } from "react-redux";
+import { selectCartItems, selectCartTotal } from "../../store/cart/cart.selector";
+import { Link } from "react-router-dom";
 
 const Checkout = () => {
-  const { cartItems, cartTotal } = useContext(CartContext);
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
   return (
     <CheckoutContainer>
       <CheckoutHeader>
@@ -25,10 +28,10 @@ const Checkout = () => {
           <span>Remove</span>
         </HeaderBlock>
       </CheckoutHeader>
-      {cartItems.map((cartItem) => (
+      {cartItems.length > 0 ? cartItems.map((cartItem) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
-      ))}
-      <span className="total">Total: ${cartTotal}</span>
+      )) : <p>Your cart is empty. <Link to='/shop'>Continue Shopping</Link></p>}
+      {cartTotal > 0 && <Total>Total: ${cartTotal}</Total>}
     </CheckoutContainer>
   );
 };
